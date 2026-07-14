@@ -43,4 +43,17 @@ public class MyPortfolio {
                 """;
     }
 
+    @GetMapping("/project")
+    public String Project(){
+        return """
+                <ul>
+                <li>Student Management</li>
+                <li>Brain Tumor Detection Using Deep Learning</li>
+                <li>Road Accident Severity Predictor</li>
+                <li>Pneumonia Detection Using Deep Learning</li>
+                <li>Diabetes Predictor</li>
+                </ul>
+                """;
+    }
+
 }
