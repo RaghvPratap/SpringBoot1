@@ -32,4 +32,15 @@ public class MyPortfolio {
                 """;
     }
 
+    @GetMapping("/edu")
+    public String edu(){
+        return """
+                <ul>
+                <li>M.Tech from LPU</li>
+                <li>B.Tech from ABESIT</li>
+                <li>Schooling from Lucknow</li>
+                </ul>
+                """;
+    }
+
 }
