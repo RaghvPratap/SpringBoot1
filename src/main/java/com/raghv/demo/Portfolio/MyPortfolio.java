@@ -18,18 +18,6 @@ public class MyPortfolio {
                 """;
     }
 
-    @GetMapping("/skills")
-    public String skills(){
-        return """
-                <ul>
-                <li>Java</li>
-                <li>SpringBoot</li>
-                <li>SQL</li>
-                <li>Data Structures</li>
-                <li>Python</li>
-                <li>Machine Learning</li>
-                </ul>
-                """;
-    }
+
 
 }
