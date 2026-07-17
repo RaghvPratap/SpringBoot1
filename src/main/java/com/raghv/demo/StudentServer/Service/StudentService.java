@@ -1,10 +1,12 @@
-package com.raghv.demo.StudentServer;
+package com.raghv.demo.StudentServer.Service;
 
+import com.raghv.demo.StudentServer.Student;
+import com.raghv.demo.StudentServer.Repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
 @Service
 public class StudentService {
-    StudentRepository  studentRepository;
+    StudentRepository studentRepository;
 
     public StudentService(StudentRepository studentRepository) {
         this.studentRepository=studentRepository;

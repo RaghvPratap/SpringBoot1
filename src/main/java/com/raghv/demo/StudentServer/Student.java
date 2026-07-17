@@ -1,7 +1,13 @@
 package com.raghv.demo.StudentServer;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+
+@Entity
 public class Student {
-    int id,age;
+    @Id
+    int id;
+    int age;
     String name,dept;
 
     public String getName() {
