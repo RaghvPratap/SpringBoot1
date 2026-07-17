@@ -4,6 +4,8 @@ import com.raghv.demo.StudentServer.Student;
 import com.raghv.demo.StudentServer.Repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class StudentService {
     StudentRepository studentRepository;
@@ -26,5 +28,20 @@ public class StudentService {
 
     public Student getStudentById(int id) {
         return studentRepository.findById(id).orElse(null);
+    }
+
+    public Student updateStudent(int id, Student newStudent) {
+        System.out.println("Searching for ID: " + id);
+        Optional<Student> optionalStudent=studentRepository.findById(id);
+        System.out.println("Found? " + optionalStudent.isPresent());
+        if(optionalStudent.isEmpty()){
+            return null;
+        }
+        Student existingStudent=optionalStudent.get();
+        existingStudent.setName(newStudent.getName());
+        existingStudent.setAge(newStudent.getAge());
+        existingStudent.setDept(newStudent.getDept());
+
+        return studentRepository.save(existingStudent);
     }
 }

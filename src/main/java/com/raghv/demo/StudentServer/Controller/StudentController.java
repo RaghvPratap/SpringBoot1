@@ -31,4 +31,15 @@ public class StudentController {
         return ResponseEntity.status(200).body(student);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<Student> updateStudent(@PathVariable int id,
+                                                 @RequestBody Student student){
+        Student updateStudent=studentService.updateStudent(id, student);
+        System.out.println("PUT API called");
+        if(updateStudent==null){
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updateStudent);
+    }
+
 }
