@@ -2,6 +2,7 @@ package com.raghv.demo.StudentServer.Controller;
 
 import com.raghv.demo.StudentServer.Service.StudentService;
 import com.raghv.demo.StudentServer.Student;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +19,7 @@ public class StudentController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Student> storeStudent(@RequestBody Student student){
+    public ResponseEntity<Student> storeStudent(@RequestBody @Valid Student student){
         Student res=studentService.studentValidate(student);
         if(res==null){
             return ResponseEntity.status(400).body(res);
@@ -33,7 +34,7 @@ public class StudentController {
     }
 
     @PutMapping("/update/{id}")
-    public ResponseEntity<Student> updateStudent(@PathVariable int id,
+    public ResponseEntity<Student> updateStudent(@PathVariable int id,@Valid
                                                  @RequestBody Student student){
         Student updateStudent=studentService.updateStudent(id, student);
         System.out.println("PUT API called");
