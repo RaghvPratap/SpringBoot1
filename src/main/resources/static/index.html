@@ -1,487 +1,1679 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Student Registry — Catalog Desk</title>-->
+<!--    <link rel="preconnect" href="https://fonts.googleapis.com">-->
+<!--    <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">-->
+<!--    <style>-->
+<!--        :root{-->
+<!--            &#45;&#45;paper: #efe6d3;-->
+<!--            &#45;&#45;paper-dark: #e4d7bc;-->
+<!--            &#45;&#45;ink: #1b2a41;-->
+<!--            &#45;&#45;ink-soft: #4a4335;-->
+<!--            &#45;&#45;rule: #8b7355;-->
+<!--            &#45;&#45;stamp-red: #a13d2e;-->
+<!--            &#45;&#45;stamp-green: #2f5233;-->
+<!--            &#45;&#45;card-shadow: rgba(27, 42, 65, 0.18);-->
+<!--            &#45;&#45;focus: #2f6f8f;-->
+<!--        }-->
+
+<!--        * { box-sizing: border-box; }-->
+
+<!--        body {-->
+<!--            margin: 0;-->
+<!--            min-height: 100vh;-->
+<!--            background:-->
+<!--                    repeating-linear-gradient(0deg, rgba(139,115,85,0.05) 0px, rgba(139,115,85,0.05) 1px, transparent 1px, transparent 28px),-->
+<!--                    var(&#45;&#45;paper);-->
+<!--            color: var(&#45;&#45;ink);-->
+<!--            font-family: 'Source Serif 4', serif;-->
+<!--            padding: 48px 20px 80px;-->
+<!--        }-->
+
+<!--        .drawer-label {-->
+<!--            text-align: center;-->
+<!--            font-family: 'Special Elite', monospace;-->
+<!--            letter-spacing: 0.35em;-->
+<!--            text-transform: uppercase;-->
+<!--            font-size: 13px;-->
+<!--            color: var(&#45;&#45;ink-soft);-->
+<!--            margin-bottom: 6px;-->
+<!--        }-->
+
+<!--        h1 {-->
+<!--            font-family: 'Special Elite', monospace;-->
+<!--            text-align: center;-->
+<!--            font-weight: 400;-->
+<!--            font-size: clamp(28px, 4vw, 42px);-->
+<!--            letter-spacing: 0.02em;-->
+<!--            margin: 0 0 6px;-->
+<!--            color: var(&#45;&#45;ink);-->
+<!--        }-->
+
+<!--        .subhead {-->
+<!--            text-align: center;-->
+<!--            color: var(&#45;&#45;ink-soft);-->
+<!--            font-size: 15px;-->
+<!--            margin: 0 0 36px;-->
+<!--            font-style: italic;-->
+<!--        }-->
+
+<!--        .config {-->
+<!--            max-width: 620px;-->
+<!--            margin: 0 auto 32px;-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--            align-items: center;-->
+<!--            font-family: 'JetBrains Mono', monospace;-->
+<!--            font-size: 13px;-->
+<!--            color: var(&#45;&#45;ink-soft);-->
+<!--            background: var(&#45;&#45;paper-dark);-->
+<!--            border: 1px solid var(&#45;&#45;rule);-->
+<!--            border-radius: 4px;-->
+<!--            padding: 10px 14px;-->
+<!--        }-->
+<!--        .config label { white-space: nowrap; }-->
+<!--        .config input {-->
+<!--            flex: 1;-->
+<!--            border: none;-->
+<!--            background: transparent;-->
+<!--            font-family: 'JetBrains Mono', monospace;-->
+<!--            font-size: 13px;-->
+<!--            color: var(&#45;&#45;ink);-->
+<!--            outline: none;-->
+<!--            border-bottom: 1px dashed var(&#45;&#45;rule);-->
+<!--            padding: 2px 4px;-->
+<!--        }-->
+
+<!--        .tabs {-->
+<!--            max-width: 620px;-->
+<!--            margin: 0 auto;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--        }-->
+
+<!--        .tab {-->
+<!--            font-family: 'Special Elite', monospace;-->
+<!--            font-size: 13px;-->
+<!--            letter-spacing: 0.08em;-->
+<!--            text-transform: uppercase;-->
+<!--            background: var(&#45;&#45;paper-dark);-->
+<!--            border: 1px solid var(&#45;&#45;rule);-->
+<!--            border-bottom: none;-->
+<!--            color: var(&#45;&#45;ink-soft);-->
+<!--            padding: 10px 18px;-->
+<!--            cursor: pointer;-->
+<!--            border-radius: 6px 6px 0 0;-->
+<!--            margin: 0 -1px 0 0;-->
+<!--            position: relative;-->
+<!--            top: 1px;-->
+<!--        }-->
+<!--        .tab:hover { color: var(&#45;&#45;ink); }-->
+<!--        .tab.active {-->
+<!--            background: #fffdf6;-->
+<!--            color: var(&#45;&#45;ink);-->
+<!--            font-weight: 600;-->
+<!--            z-index: 2;-->
+<!--        }-->
+<!--        .tab:focus-visible { outline: 2px solid var(&#45;&#45;focus); outline-offset: 2px; }-->
+
+<!--        .card-wrap { max-width: 620px; margin: 0 auto; }-->
+
+<!--        .card {-->
+<!--            background: #fffdf6;-->
+<!--            border: 1px solid var(&#45;&#45;rule);-->
+<!--            border-radius: 0 8px 8px 8px;-->
+<!--            box-shadow: 0 10px 24px var(&#45;&#45;card-shadow);-->
+<!--            padding: 30px 32px 26px;-->
+<!--            position: relative;-->
+<!--            display: none;-->
+<!--        }-->
+<!--        .card.active { display: block; }-->
+
+<!--        .punch {-->
+<!--            position: absolute;-->
+<!--            top: -14px;-->
+<!--            left: 28px;-->
+<!--            width: 22px;-->
+<!--            height: 22px;-->
+<!--            background: var(&#45;&#45;paper);-->
+<!--            border: 1px solid var(&#45;&#45;rule);-->
+<!--            border-radius: 50%;-->
+<!--            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);-->
+<!--        }-->
+
+<!--        .card-title {-->
+<!--            font-family: 'Special Elite', monospace;-->
+<!--            font-size: 16px;-->
+<!--            letter-spacing: 0.05em;-->
+<!--            text-transform: uppercase;-->
+<!--            color: var(&#45;&#45;ink);-->
+<!--            margin: 4px 0 4px;-->
+<!--        }-->
+<!--        .card-desc {-->
+<!--            font-size: 14px;-->
+<!--            color: var(&#45;&#45;ink-soft);-->
+<!--            margin: 0 0 22px;-->
+<!--            border-bottom: 1px dashed var(&#45;&#45;rule);-->
+<!--            padding-bottom: 18px;-->
+<!--        }-->
+
+<!--        .field { margin-bottom: 16px; }-->
+<!--        .field label {-->
+<!--            display: block;-->
+<!--            font-family: 'JetBrains Mono', monospace;-->
+<!--            font-size: 12px;-->
+<!--            letter-spacing: 0.06em;-->
+<!--            text-transform: uppercase;-->
+<!--            color: var(&#45;&#45;ink-soft);-->
+<!--            margin-bottom: 5px;-->
+<!--        }-->
+<!--        .field input, .field textarea {-->
+<!--            width: 100%;-->
+<!--            font-family: 'JetBrains Mono', monospace;-->
+<!--            font-size: 14px;-->
+<!--            color: var(&#45;&#45;ink);-->
+<!--            background: transparent;-->
+<!--            border: none;-->
+<!--            border-bottom: 1px solid var(&#45;&#45;rule);-->
+<!--            padding: 6px 2px;-->
+<!--            outline: none;-->
+<!--        }-->
+<!--        .field input:focus, .field textarea:focus {-->
+<!--            border-bottom: 2px solid var(&#45;&#45;focus);-->
+<!--        }-->
+<!--        .field textarea { resize: vertical; min-height: 50px; }-->
+
+<!--        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }-->
+
+<!--        .actions {-->
+<!--            display: flex;-->
+<!--            justify-content: flex-end;-->
+<!--            gap: 10px;-->
+<!--            margin-top: 24px;-->
+<!--        }-->
+
+<!--        button.stamp {-->
+<!--            font-family: 'Special Elite', monospace;-->
+<!--            font-size: 13px;-->
+<!--            letter-spacing: 0.08em;-->
+<!--            text-transform: uppercase;-->
+<!--            padding: 10px 22px;-->
+<!--            border-radius: 3px;-->
+<!--            border: 2px solid currentColor;-->
+<!--            background: transparent;-->
+<!--            cursor: pointer;-->
+<!--            transform: rotate(-1deg);-->
+<!--            transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;-->
+<!--        }-->
+<!--        button.stamp:hover { transform: rotate(0deg) scale(1.02); }-->
+<!--        button.stamp:focus-visible { outline: 2px solid var(&#45;&#45;focus); outline-offset: 3px; }-->
+
+<!--        .stamp.create { color: var(&#45;&#45;stamp-green); }-->
+<!--        .stamp.create:hover { background: var(&#45;&#45;stamp-green); color: #fffdf6; }-->
+
+<!--        .stamp.lookup { color: var(&#45;&#45;focus); }-->
+<!--        .stamp.lookup:hover { background: var(&#45;&#45;focus); color: #fffdf6; }-->
+
+<!--        .stamp.update { color: var(&#45;&#45;ink); }-->
+<!--        .stamp.update:hover { background: var(&#45;&#45;ink); color: #fffdf6; }-->
+
+<!--        .stamp.remove { color: var(&#45;&#45;stamp-red); }-->
+<!--        .stamp.remove:hover { background: var(&#45;&#45;stamp-red); color: #fffdf6; }-->
+
+<!--        .result {-->
+<!--            margin-top: 20px;-->
+<!--            font-family: 'JetBrains Mono', monospace;-->
+<!--            font-size: 13px;-->
+<!--            white-space: pre-wrap;-->
+<!--            word-break: break-word;-->
+<!--            border-left: 3px solid var(&#45;&#45;rule);-->
+<!--            padding: 10px 14px;-->
+<!--            background: var(&#45;&#45;paper);-->
+<!--            border-radius: 0 4px 4px 0;-->
+<!--            display: none;-->
+<!--        }-->
+<!--        .result.show { display: block; }-->
+<!--        .result.ok { border-color: var(&#45;&#45;stamp-green); }-->
+<!--        .result.err { border-color: var(&#45;&#45;stamp-red); color: var(&#45;&#45;stamp-red); }-->
+
+<!--        .status-tag {-->
+<!--            display: inline-block;-->
+<!--            font-family: 'JetBrains Mono', monospace;-->
+<!--            font-size: 11px;-->
+<!--            letter-spacing: 0.05em;-->
+<!--            padding: 2px 8px;-->
+<!--            border-radius: 3px;-->
+<!--            margin-bottom: 8px;-->
+<!--            background: var(&#45;&#45;rule);-->
+<!--            color: #fffdf6;-->
+<!--        }-->
+
+<!--        footer {-->
+<!--            text-align: center;-->
+<!--            margin-top: 36px;-->
+<!--            font-family: 'JetBrains Mono', monospace;-->
+<!--            font-size: 12px;-->
+<!--            color: var(&#45;&#45;ink-soft);-->
+<!--        }-->
+
+<!--        @media (max-width: 480px) {-->
+<!--            .row-2 { grid-template-columns: 1fr; }-->
+<!--            .card { padding: 24px 18px 20px; }-->
+<!--            .tab { padding: 9px 12px; font-size: 11px; }-->
+<!--        }-->
+
+<!--        @media (prefers-reduced-motion: reduce) {-->
+<!--            * { transition: none !important; }-->
+<!--            button.stamp { transform: none !important; }-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<div class="drawer-label">Registrar's Office — Records Drawer 4</div>-->
+<!--<h1>Student Catalog</h1>-->
+<!--<p class="subhead">One card per student. File, find, amend, or withdraw a record.</p>-->
+
+<!--<div class="config">-->
+<!--    <label for="baseUrl">API base:</label>-->
+<!--    <input id="baseUrl" type="text" value="http://localhost:8080" spellcheck="false">-->
+<!--</div>-->
+
+<!--<div class="tabs" role="tablist" aria-label="Record actions">-->
+<!--    <button class="tab active" data-tab="create" role="tab" aria-selected="true">Create</button>-->
+<!--    <button class="tab" data-tab="lookup" role="tab" aria-selected="false">Lookup</button>-->
+<!--    <button class="tab" data-tab="update" role="tab" aria-selected="false">Update</button>-->
+<!--    <button class="tab" data-tab="remove" role="tab" aria-selected="false">Remove</button>-->
+<!--</div>-->
+
+<!--<div class="card-wrap">-->
+
+<!--    &lt;!&ndash; CREATE &ndash;&gt;-->
+<!--    <section class="card active" id="card-create">-->
+<!--        <div class="punch"></div>-->
+<!--        <div class="status-tag">POST /create</div>-->
+<!--        <div class="card-title">New Student Card</div>-->
+<!--        <p class="card-desc">File a new record into the drawer.</p>-->
+
+<!--        <div class="row-2">-->
+<!--            <div class="field">-->
+<!--                <label for="c-name">Full name</label>-->
+<!--                <input id="c-name" type="text" placeholder="e.g. Your Name">-->
+<!--            </div>-->
+<!--            <div class="field">-->
+<!--                <label for="c-id">Student ID</label>-->
+<!--                <input id="c-id" type="text" placeholder="e.g. XXXXXXXX">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="row-2">-->
+<!--            <div class="field">-->
+<!--                <label for="c-age">Age</label>-->
+<!--                <input id="c-age" type="number" min="0" placeholder="e.g. 18">-->
+<!--            </div>-->
+<!--            <div class="field">-->
+<!--                <label for="c-dep">Department</label>-->
+<!--                <input id="c-dep" type="text" placeholder="e.g. Computer Science">-->
+<!--            </div>-->
+<!--        </div>-->
+
+<!--        <div class="actions">-->
+<!--            <button class="stamp create" onclick="createStudent()">File Record</button>-->
+<!--        </div>-->
+<!--        <div class="result" id="result-create"></div>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; LOOKUP &ndash;&gt;-->
+<!--    <section class="card" id="card-lookup">-->
+<!--        <div class="punch"></div>-->
+<!--        <div class="status-tag">GET /getStudent/:id</div>-->
+<!--        <div class="card-title">Find a Card</div>-->
+<!--        <p class="card-desc">Pull a record by student ID.</p>-->
+
+<!--        <div class="field">-->
+<!--            <label for="l-id">Student ID</label>-->
+<!--            <input id="l-id" type="text" placeholder="e.g. 123">-->
+<!--        </div>-->
+
+<!--        <div class="actions">-->
+<!--            <button class="stamp lookup" onclick="getStudent()">Pull Card</button>-->
+<!--        </div>-->
+<!--        <div class="result" id="result-lookup"></div>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; UPDATE &ndash;&gt;-->
+<!--    <section class="card" id="card-update">-->
+<!--        <div class="punch"></div>-->
+<!--        <div class="status-tag">PUT /updateStudent/:id</div>-->
+<!--        <div class="card-title">Amend a Card</div>-->
+<!--        <p class="card-desc">Revise the details already on file. All fields are saved as entered — fill in every one, including values that stay the same.</p>-->
+
+<!--        <div class="field">-->
+<!--            <label for="u-id">Student ID</label>-->
+<!--            <input id="u-id" type="text" placeholder="e.g. 12318753">-->
+<!--        </div>-->
+<!--        <div class="row-2">-->
+<!--            <div class="field">-->
+<!--                <label for="u-name">Full name</label>-->
+<!--                <input id="u-name" type="text" placeholder="Name">-->
+<!--            </div>-->
+<!--            <div class="field">-->
+<!--                <label for="u-age">Age</label>-->
+<!--                <input id="u-age" type="number" min="0" placeholder="Age">-->
+<!--            </div>-->
+<!--        </div>-->
+<!--        <div class="field">-->
+<!--            <label for="u-dep">Department</label>-->
+<!--            <input id="u-dep" type="text" placeholder="Department">-->
+<!--        </div>-->
+
+<!--        <div class="actions">-->
+<!--            <button class="stamp update" onclick="updateStudent()">Amend Record</button>-->
+<!--        </div>-->
+<!--        <div class="result" id="result-update"></div>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; REMOVE &ndash;&gt;-->
+<!--    <section class="card" id="card-remove">-->
+<!--        <div class="punch"></div>-->
+<!--        <div class="status-tag">DELETE /deleteStudent/:id</div>-->
+<!--        <div class="card-title">Withdraw a Card</div>-->
+<!--        <p class="card-desc">Pull a record from the drawer for good. This cannot be undone.</p>-->
+
+<!--        <div class="field">-->
+<!--            <label for="d-id">Student ID</label>-->
+<!--            <input id="d-id" type="text" placeholder="e.g. 1">-->
+<!--        </div>-->
+
+<!--        <div class="actions">-->
+<!--            <button class="stamp remove" onclick="deleteStudent()">Withdraw Record</button>-->
+<!--        </div>-->
+<!--        <div class="result" id="result-remove"></div>-->
+<!--    </section>-->
+
+<!--</div>-->
+
+<!--<footer>Talks to your API over fetch — nothing is stored in the browser.</footer>-->
+
+<!--<script>-->
+<!--    // &#45;&#45;&#45;&#45; Tab switching &#45;&#45;&#45;&#45;-->
+<!--    const tabs = document.querySelectorAll('.tab');-->
+<!--    const cards = document.querySelectorAll('.card');-->
+<!--    tabs.forEach(tab => {-->
+<!--        tab.addEventListener('click', () => {-->
+<!--            tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });-->
+<!--            cards.forEach(c => c.classList.remove('active'));-->
+<!--            tab.classList.add('active');-->
+<!--            tab.setAttribute('aria-selected', 'true');-->
+<!--            document.getElementById('card-' + tab.dataset.tab).classList.add('active');-->
+<!--        });-->
+<!--    });-->
+
+<!--    function base() {-->
+<!--        return document.getElementById('baseUrl').value.replace(/\/$/, '');-->
+<!--    }-->
+
+<!--    function showResult(id, ok, data) {-->
+<!--        const el = document.getElementById(id);-->
+<!--        el.classList.remove('ok', 'err');-->
+<!--        el.classList.add('show', ok ? 'ok' : 'err');-->
+<!--        el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);-->
+<!--    }-->
+
+<!--    async function callApi(url, options, resultId) {-->
+<!--        try {-->
+<!--            const res = await fetch(url, options);-->
+<!--            let body;-->
+<!--            const text = await res.text();-->
+<!--            try { body = JSON.parse(text); } catch { body = text; }-->
+<!--            showResult(resultId, res.ok, body || (res.ok ? 'Done — no content returned.' : Request failed (${res.status})));-->
+<!--            return body;-->
+<!--        } catch (err) {-->
+<!--            showResult(resultId, false, 'Could not reach the server: ' + err.message);-->
+<!--        }-->
+<!--    }-->
+
+<!--    // &#45;&#45;&#45;&#45; CREATE &#45;&#45;&#45;&#45;-->
+<!--    function createStudent() {-->
+<!--        const payload = {-->
+<!--            id: document.getElementById('c-id').value.trim(),-->
+<!--            name: document.getElementById('c-name').value.trim(),-->
+<!--            age: document.getElementById('c-age').value.trim(),-->
+<!--            dep: document.getElementById('c-dep').value.trim(),-->
+<!--        };-->
+<!--        callApi(${base()}/create, {-->
+<!--        method: 'POST',-->
+<!--            headers: { 'Content-Type': 'application/json' },-->
+<!--        body: JSON.stringify(payload),-->
+<!--    }, 'result-create');-->
+<!--    }-->
+
+<!--    // &#45;&#45;&#45;&#45; LOOKUP &#45;&#45;&#45;&#45;-->
+<!--    function getStudent() {-->
+<!--        const id = document.getElementById('l-id').value.trim();-->
+<!--        if (!id) return showResult('result-lookup', false, 'Enter a student ID first.');-->
+<!--        callApi(${base()}/get/${encodeURIComponent(id)}, { method: 'GET' }, 'result-lookup');-->
+<!--    }-->
+
+<!--    // &#45;&#45;&#45;&#45; UPDATE &#45;&#45;&#45;&#45;-->
+<!--    function updateStudent() {-->
+<!--        const id = document.getElementById('u-id').value.trim();-->
+<!--        const name = document.getElementById('u-name').value.trim();-->
+<!--        const age = document.getElementById('u-age').value.trim();-->
+<!--        const dep = document.getElementById('u-dep').value.trim();-->
+
+<!--        if (!id) return showResult('result-update', false, 'Enter a student ID first.');-->
+<!--        if (!name || !age || !dep) {-->
+<!--            return showResult('result-update', false, 'This endpoint overwrites the whole record — fill in name, age, and department.');-->
+<!--        }-->
+
+<!--        callApi(${base()}/update/${encodeURIComponent(id)}, {-->
+<!--            method: 'PUT',-->
+<!--                headers: { 'Content-Type': 'application/json' },-->
+<!--            body: JSON.stringify({ name, age, dep }),-->
+<!--        }, 'result-update');-->
+<!--    }-->
+
+<!--    // &#45;&#45;&#45;&#45; DELETE &#45;&#45;&#45;&#45;-->
+<!--    function deleteStudent() {-->
+<!--        const id = document.getElementById('d-id').value.trim();-->
+<!--        if (!id) return showResult('result-remove', false, 'Enter a student ID first.');-->
+<!--        callApi(${base()}/delete/${encodeURIComponent(id)}, { method: 'DELETE' }, 'result-remove');-->
+<!--    }-->
+<!--</script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Registry — Catalog Desk</title>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link href="https://fonts.googleapis.com/css2?family=Special+Elite&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
     <style>
+
         :root{
-            --paper: #efe6d3;
-            --paper-dark: #e4d7bc;
-            --ink: #1b2a41;
-            --ink-soft: #4a4335;
-            --rule: #8b7355;
-            --stamp-red: #a13d2e;
-            --stamp-green: #2f5233;
-            --card-shadow: rgba(27, 42, 65, 0.18);
-            --focus: #2f6f8f;
+            --paper:#efe6d3;
+            --paper-dark:#e4d7bc;
+            --ink:#1b2a41;
+            --ink-soft:#4a4335;
+            --rule:#8b7355;
+            --stamp-red:#a13d2e;
+            --stamp-green:#2f5233;
+            --card-shadow:rgba(27,42,65,.18);
+            --focus:#2f6f8f;
         }
 
-        * { box-sizing: border-box; }
+        *{
+            box-sizing:border-box;
+        }
 
-        body {
-            margin: 0;
-            min-height: 100vh;
+        body{
+
+            margin:0;
+
+            min-height:100vh;
+
             background:
-                    repeating-linear-gradient(0deg, rgba(139,115,85,0.05) 0px, rgba(139,115,85,0.05) 1px, transparent 1px, transparent 28px),
+                    repeating-linear-gradient(
+                            0deg,
+                            rgba(139,115,85,.05) 0px,
+                            rgba(139,115,85,.05) 1px,
+                            transparent 1px,
+                            transparent 28px),
                     var(--paper);
-            color: var(--ink);
-            font-family: 'Source Serif 4', serif;
-            padding: 48px 20px 80px;
+
+            color:var(--ink);
+
+            font-family:'Source Serif 4',serif;
+
+            padding:48px 20px 80px;
+
         }
 
-        .drawer-label {
-            text-align: center;
-            font-family: 'Special Elite', monospace;
-            letter-spacing: 0.35em;
-            text-transform: uppercase;
-            font-size: 13px;
-            color: var(--ink-soft);
-            margin-bottom: 6px;
+        .drawer-label{
+
+            text-align:center;
+
+            font-family:'Special Elite',monospace;
+
+            letter-spacing:.35em;
+
+            text-transform:uppercase;
+
+            font-size:13px;
+
+            color:var(--ink-soft);
+
+            margin-bottom:6px;
+
         }
 
-        h1 {
-            font-family: 'Special Elite', monospace;
-            text-align: center;
-            font-weight: 400;
-            font-size: clamp(28px, 4vw, 42px);
-            letter-spacing: 0.02em;
-            margin: 0 0 6px;
-            color: var(--ink);
+        h1{
+
+            font-family:'Special Elite',monospace;
+
+            text-align:center;
+
+            font-size:clamp(28px,4vw,42px);
+
+            font-weight:400;
+
+            margin:0 0 6px;
+
         }
 
-        .subhead {
-            text-align: center;
-            color: var(--ink-soft);
-            font-size: 15px;
-            margin: 0 0 36px;
-            font-style: italic;
+        .subhead{
+
+            text-align:center;
+
+            color:var(--ink-soft);
+
+            font-size:15px;
+
+            margin:0 0 36px;
+
+            font-style:italic;
+
         }
 
-        .config {
-            max-width: 620px;
-            margin: 0 auto 32px;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            color: var(--ink-soft);
-            background: var(--paper-dark);
-            border: 1px solid var(--rule);
-            border-radius: 4px;
-            padding: 10px 14px;
-        }
-        .config label { white-space: nowrap; }
-        .config input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            color: var(--ink);
-            outline: none;
-            border-bottom: 1px dashed var(--rule);
-            padding: 2px 4px;
-        }
+        .config{
 
-        .tabs {
-            max-width: 620px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: center;
+            max-width:620px;
+
+            margin:auto;
+
+            margin-bottom:32px;
+
+            display:flex;
+
+            gap:10px;
+
+            align-items:center;
+
+            background:var(--paper-dark);
+
+            border:1px solid var(--rule);
+
+            padding:10px 14px;
+
+            border-radius:4px;
+
+            font-family:'JetBrains Mono',monospace;
+
         }
 
-        .tab {
-            font-family: 'Special Elite', monospace;
-            font-size: 13px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            background: var(--paper-dark);
-            border: 1px solid var(--rule);
-            border-bottom: none;
-            color: var(--ink-soft);
-            padding: 10px 18px;
-            cursor: pointer;
-            border-radius: 6px 6px 0 0;
-            margin: 0 -1px 0 0;
-            position: relative;
-            top: 1px;
-        }
-        .tab:hover { color: var(--ink); }
-        .tab.active {
-            background: #fffdf6;
-            color: var(--ink);
-            font-weight: 600;
-            z-index: 2;
-        }
-        .tab:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+        .config label{
 
-        .card-wrap { max-width: 620px; margin: 0 auto; }
+            white-space:nowrap;
 
-        .card {
-            background: #fffdf6;
-            border: 1px solid var(--rule);
-            border-radius: 0 8px 8px 8px;
-            box-shadow: 0 10px 24px var(--card-shadow);
-            padding: 30px 32px 26px;
-            position: relative;
-            display: none;
-        }
-        .card.active { display: block; }
-
-        .punch {
-            position: absolute;
-            top: -14px;
-            left: 28px;
-            width: 22px;
-            height: 22px;
-            background: var(--paper);
-            border: 1px solid var(--rule);
-            border-radius: 50%;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
         }
 
-        .card-title {
-            font-family: 'Special Elite', monospace;
-            font-size: 16px;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            color: var(--ink);
-            margin: 4px 0 4px;
-        }
-        .card-desc {
-            font-size: 14px;
-            color: var(--ink-soft);
-            margin: 0 0 22px;
-            border-bottom: 1px dashed var(--rule);
-            padding-bottom: 18px;
-        }
+        .config input{
 
-        .field { margin-bottom: 16px; }
-        .field label {
-            display: block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--ink-soft);
-            margin-bottom: 5px;
-        }
-        .field input, .field textarea {
-            width: 100%;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 14px;
-            color: var(--ink);
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--rule);
-            padding: 6px 2px;
-            outline: none;
-        }
-        .field input:focus, .field textarea:focus {
-            border-bottom: 2px solid var(--focus);
-        }
-        .field textarea { resize: vertical; min-height: 50px; }
+            flex:1;
 
-        .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+            border:none;
 
-        .actions {
-            display: flex;
-            justify-content: flex-end;
-            gap: 10px;
-            margin-top: 24px;
+            outline:none;
+
+            background:transparent;
+
+            border-bottom:1px dashed var(--rule);
+
+            font-family:'JetBrains Mono',monospace;
+
         }
 
-        button.stamp {
-            font-family: 'Special Elite', monospace;
-            font-size: 13px;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
-            padding: 10px 22px;
-            border-radius: 3px;
-            border: 2px solid currentColor;
-            background: transparent;
-            cursor: pointer;
-            transform: rotate(-1deg);
-            transition: transform 0.15s ease, background 0.15s ease, color 0.15s ease;
-        }
-        button.stamp:hover { transform: rotate(0deg) scale(1.02); }
-        button.stamp:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+        .tabs{
 
-        .stamp.create { color: var(--stamp-green); }
-        .stamp.create:hover { background: var(--stamp-green); color: #fffdf6; }
+            display:flex;
 
-        .stamp.lookup { color: var(--focus); }
-        .stamp.lookup:hover { background: var(--focus); color: #fffdf6; }
+            justify-content:center;
 
-        .stamp.update { color: var(--ink); }
-        .stamp.update:hover { background: var(--ink); color: #fffdf6; }
+            max-width:620px;
 
-        .stamp.remove { color: var(--stamp-red); }
-        .stamp.remove:hover { background: var(--stamp-red); color: #fffdf6; }
+            margin:auto;
 
-        .result {
-            margin-top: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 13px;
-            white-space: pre-wrap;
-            word-break: break-word;
-            border-left: 3px solid var(--rule);
-            padding: 10px 14px;
-            background: var(--paper);
-            border-radius: 0 4px 4px 0;
-            display: none;
-        }
-        .result.show { display: block; }
-        .result.ok { border-color: var(--stamp-green); }
-        .result.err { border-color: var(--stamp-red); color: var(--stamp-red); }
-
-        .status-tag {
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 11px;
-            letter-spacing: 0.05em;
-            padding: 2px 8px;
-            border-radius: 3px;
-            margin-bottom: 8px;
-            background: var(--rule);
-            color: #fffdf6;
         }
 
-        footer {
-            text-align: center;
-            margin-top: 36px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 12px;
-            color: var(--ink-soft);
+        .tab{
+
+            font-family:'Special Elite',monospace;
+
+            text-transform:uppercase;
+
+            padding:10px 18px;
+
+            cursor:pointer;
+
+            background:var(--paper-dark);
+
+            border:1px solid var(--rule);
+
+            border-bottom:none;
+
+            border-radius:6px 6px 0 0;
+
+            color:var(--ink-soft);
+
         }
 
-        @media (max-width: 480px) {
-            .row-2 { grid-template-columns: 1fr; }
-            .card { padding: 24px 18px 20px; }
-            .tab { padding: 9px 12px; font-size: 11px; }
+        .tab.active{
+
+            background:#fffdf6;
+
+            color:var(--ink);
+
+            font-weight:600;
+
         }
 
-        @media (prefers-reduced-motion: reduce) {
-            * { transition: none !important; }
-            button.stamp { transform: none !important; }
+        .card-wrap{
+
+            max-width:620px;
+
+            margin:auto;
+
         }
+
+        .card{
+
+            display:none;
+
+            background:#fffdf6;
+
+            border:1px solid var(--rule);
+
+            border-radius:0 8px 8px 8px;
+
+            box-shadow:0 10px 24px var(--card-shadow);
+
+            padding:30px;
+
+            position:relative;
+
+        }
+
+        .card.active{
+
+            display:block;
+
+        }
+
+        .punch{
+
+            position:absolute;
+
+            top:-14px;
+
+            left:28px;
+
+            width:22px;
+
+            height:22px;
+
+            border-radius:50%;
+
+            background:var(--paper);
+
+            border:1px solid var(--rule);
+
+        }
+
+        .card-title{
+
+            font-family:'Special Elite',monospace;
+
+            font-size:16px;
+
+            text-transform:uppercase;
+
+        }
+
+        .card-desc{
+
+            color:var(--ink-soft);
+
+            border-bottom:1px dashed var(--rule);
+
+            padding-bottom:18px;
+
+            margin-bottom:20px;
+
+        }
+
+        .row-2{
+
+            display:grid;
+
+            grid-template-columns:1fr 1fr;
+
+            gap:16px;
+
+        }
+
+        .field{
+
+            margin-bottom:16px;
+
+        }
+
+        .field label{
+
+            display:block;
+
+            margin-bottom:5px;
+
+            font-size:12px;
+
+            text-transform:uppercase;
+
+            font-family:'JetBrains Mono',monospace;
+
+        }
+
+        .field input{
+
+            width:100%;
+
+            border:none;
+
+            border-bottom:1px solid var(--rule);
+
+            background:transparent;
+
+            outline:none;
+
+            padding:6px 2px;
+
+            font-family:'JetBrains Mono',monospace;
+
+        }
+
+        .field input:focus{
+
+            border-bottom:2px solid var(--focus);
+
+        }
+
+        .actions{
+
+            display:flex;
+
+            justify-content:flex-end;
+
+            margin-top:24px;
+
+        }
+
+        button.stamp{
+
+            font-family:'Special Elite',monospace;
+
+            text-transform:uppercase;
+
+            padding:10px 22px;
+
+            border:2px solid currentColor;
+
+            background:transparent;
+
+            cursor:pointer;
+
+            transition:.2s;
+
+        }
+
+        .stamp.create{
+
+            color:var(--stamp-green);
+
+        }
+
+        .stamp.lookup{
+
+            color:var(--focus);
+
+        }
+
+        .stamp.update{
+
+            color:var(--ink);
+
+        }
+
+        .stamp.remove{
+
+            color:var(--stamp-red);
+
+        }
+
+        button.stamp:hover{
+
+            color:white;
+
+        }
+
+        .stamp.create:hover{
+
+            background:var(--stamp-green);
+
+        }
+
+        .stamp.lookup:hover{
+
+            background:var(--focus);
+
+        }
+
+        .stamp.update:hover{
+
+            background:var(--ink);
+
+        }
+
+        .stamp.remove:hover{
+
+            background:var(--stamp-red);
+
+        }
+
+        .result{
+
+            display:none;
+
+            margin-top:20px;
+
+            padding:10px;
+
+            white-space:pre-wrap;
+
+            font-family:'JetBrains Mono',monospace;
+
+            border-left:4px solid var(--rule);
+
+            background:var(--paper);
+
+        }
+
+        .result.show{
+
+            display:block;
+
+        }
+
+        .result.ok{
+
+            border-left-color:green;
+
+        }
+
+        .result.err{
+
+            border-left-color:red;
+
+        }
+
+        .status-tag{
+
+            display:inline-block;
+
+            background:var(--rule);
+
+            color:white;
+
+            padding:2px 8px;
+
+            font-size:11px;
+
+            margin-bottom:10px;
+
+            font-family:'JetBrains Mono',monospace;
+
+        }
+
+        footer{
+
+            text-align:center;
+
+            margin-top:40px;
+
+            color:var(--ink-soft);
+
+            font-size:12px;
+
+            font-family:'JetBrains Mono',monospace;
+
+        }
+
+        @media(max-width:480px){
+
+            .row-2{
+
+                grid-template-columns:1fr;
+
+            }
+
+            .card{
+
+                padding:20px;
+
+            }
+
+        }
+
     </style>
+
 </head>
+
 <body>
 
-<div class="drawer-label">Registrar's Office — Records Drawer 4</div>
-<h1>Student Catalog</h1>
-<p class="subhead">One card per student. File, find, amend, or withdraw a record.</p>
-
-<div class="config">
-    <label for="baseUrl">API base:</label>
-    <input id="baseUrl" type="text" value="http://localhost:8080" spellcheck="false">
+<div class="drawer-label">
+    Registrar's Office — Records Drawer 4
 </div>
 
-<div class="tabs" role="tablist" aria-label="Record actions">
-    <button class="tab active" data-tab="create" role="tab" aria-selected="true">Create</button>
-    <button class="tab" data-tab="lookup" role="tab" aria-selected="false">Lookup</button>
-    <button class="tab" data-tab="update" role="tab" aria-selected="false">Update</button>
-    <button class="tab" data-tab="remove" role="tab" aria-selected="false">Remove</button>
+<h1>Student Catalog</h1>
+
+<p class="subhead">
+    One card per student. File, find, amend, or withdraw a record.
+</p>
+
+<div class="config">
+
+    <label>
+        API Base
+    </label>
+
+    <input
+            id="baseUrl"
+            value="http://localhost:8080">
+
+</div>
+
+<div class="tabs">
+
+    <button class="tab active" data-tab="create">
+        Create
+    </button>
+
+    <button class="tab" data-tab="lookup">
+        Lookup
+    </button>
+
+    <button class="tab" data-tab="update">
+        Update
+    </button>
+
+    <button class="tab" data-tab="remove">
+        Delete
+    </button>
+
 </div>
 
 <div class="card-wrap">
 
-    <!-- CREATE -->
+    <!-- ================= CREATE ================= -->
+
     <section class="card active" id="card-create">
+
         <div class="punch"></div>
-        <div class="status-tag">POST /create</div>
-        <div class="card-title">New Student Card</div>
-        <p class="card-desc">File a new record into the drawer.</p>
+
+        <div class="status-tag">
+            POST /create
+        </div>
+
+        <div class="card-title">
+            New Student Card
+        </div>
+
+        <p class="card-desc">
+            File a new student record into the registry.
+        </p>
 
         <div class="row-2">
+
             <div class="field">
-                <label for="c-name">Full name</label>
-                <input id="c-name" type="text" placeholder="e.g. Your Name">
+                <label>Student ID</label>
+                <input
+                        id="c-id"
+                        type="number"
+                        placeholder="Enter ID">
             </div>
+
             <div class="field">
-                <label for="c-id">Student ID</label>
-                <input id="c-id" type="text" placeholder="e.g. XXXXXXXX">
+                <label>Student Name</label>
+                <input
+                        id="c-name"
+                        type="text"
+                        placeholder="Enter Name">
             </div>
+
         </div>
+
         <div class="row-2">
+
             <div class="field">
-                <label for="c-age">Age</label>
-                <input id="c-age" type="number" min="0" placeholder="e.g. 18">
+                <label>Age</label>
+                <input
+                        id="c-age"
+                        type="number"
+                        placeholder="Age">
             </div>
+
             <div class="field">
-                <label for="c-dep">Department</label>
-                <input id="c-dep" type="text" placeholder="e.g. Computer Science">
+                <label>Department</label>
+                <input
+                        id="c-dept"
+                        type="text"
+                        placeholder="Department">
             </div>
+
         </div>
 
         <div class="actions">
-            <button class="stamp create" onclick="createStudent()">File Record</button>
+
+            <button
+                    class="stamp create"
+                    onclick="createStudent()">
+
+                File Record
+
+            </button>
+
         </div>
-        <div class="result" id="result-create"></div>
+
+        <div
+                class="result"
+                id="result-create">
+        </div>
+
     </section>
 
-    <!-- LOOKUP -->
+
+
+
+
+    <!-- ================= LOOKUP ================= -->
+
     <section class="card" id="card-lookup">
+
         <div class="punch"></div>
-        <div class="status-tag">GET /getStudent/:id</div>
-        <div class="card-title">Find a Card</div>
-        <p class="card-desc">Pull a record by student ID.</p>
+
+        <div class="status-tag">
+            GET /get/{id}
+        </div>
+
+        <div class="card-title">
+            Find Student
+        </div>
+
+        <p class="card-desc">
+            Search a student using Student ID.
+        </p>
 
         <div class="field">
-            <label for="l-id">Student ID</label>
-            <input id="l-id" type="text" placeholder="e.g. 123">
+
+            <label>
+                Student ID
+            </label>
+
+            <input
+                    id="l-id"
+                    type="number"
+                    placeholder="Student ID">
+
         </div>
 
         <div class="actions">
-            <button class="stamp lookup" onclick="getStudent()">Pull Card</button>
+
+            <button
+                    class="stamp lookup"
+                    onclick="getStudent()">
+
+                Search
+
+            </button>
+
         </div>
-        <div class="result" id="result-lookup"></div>
+
+        <div
+                class="result"
+                id="result-lookup">
+        </div>
+
     </section>
 
-    <!-- UPDATE -->
+
+
+
+
+
+    <!-- ================= UPDATE ================= -->
+
     <section class="card" id="card-update">
+
         <div class="punch"></div>
-        <div class="status-tag">PUT /updateStudent/:id</div>
-        <div class="card-title">Amend a Card</div>
-        <p class="card-desc">Revise the details already on file. All fields are saved as entered — fill in every one, including values that stay the same.</p>
+
+        <div class="status-tag">
+            PUT /update/{id}
+        </div>
+
+        <div class="card-title">
+            Update Student
+        </div>
+
+        <p class="card-desc">
+            Update student information.
+        </p>
 
         <div class="field">
-            <label for="u-id">Student ID</label>
-            <input id="u-id" type="text" placeholder="e.g. 12318753">
+
+            <label>
+                Student ID
+            </label>
+
+            <input
+                    id="u-id"
+                    type="number"
+                    placeholder="Student ID">
+
         </div>
+
         <div class="row-2">
+
             <div class="field">
-                <label for="u-name">Full name</label>
-                <input id="u-name" type="text" placeholder="Name">
+
+                <label>
+                    Student Name
+                </label>
+
+                <input
+                        id="u-name"
+                        type="text"
+                        placeholder="Student Name">
+
             </div>
+
             <div class="field">
-                <label for="u-age">Age</label>
-                <input id="u-age" type="number" min="0" placeholder="Age">
+
+                <label>
+                    Age
+                </label>
+
+                <input
+                        id="u-age"
+                        type="number"
+                        placeholder="Age">
+
             </div>
+
         </div>
+
         <div class="field">
-            <label for="u-dep">Department</label>
-            <input id="u-dep" type="text" placeholder="Department">
+
+            <label>
+                Department
+            </label>
+
+            <input
+                    id="u-dept"
+                    type="text"
+                    placeholder="Department">
+
         </div>
 
         <div class="actions">
-            <button class="stamp update" onclick="updateStudent()">Amend Record</button>
+
+            <button
+                    class="stamp update"
+                    onclick="updateStudent()">
+
+                Update Record
+
+            </button>
+
         </div>
-        <div class="result" id="result-update"></div>
+
+        <div
+                class="result"
+                id="result-update">
+        </div>
+
     </section>
 
-    <!-- REMOVE -->
+
+
+
+
+
+
+    <!-- ================= DELETE ================= -->
+
     <section class="card" id="card-remove">
+
         <div class="punch"></div>
-        <div class="status-tag">DELETE /deleteStudent/:id</div>
-        <div class="card-title">Withdraw a Card</div>
-        <p class="card-desc">Pull a record from the drawer for good. This cannot be undone.</p>
+
+        <div class="status-tag">
+            DELETE /delete/{id}
+        </div>
+
+        <div class="card-title">
+            Delete Student
+        </div>
+
+        <p class="card-desc">
+            Permanently remove a student record.
+        </p>
 
         <div class="field">
-            <label for="d-id">Student ID</label>
-            <input id="d-id" type="text" placeholder="e.g. 1">
+
+            <label>
+                Student ID
+            </label>
+
+            <input
+                    id="d-id"
+                    type="number"
+                    placeholder="Student ID">
+
         </div>
 
         <div class="actions">
-            <button class="stamp remove" onclick="deleteStudent()">Withdraw Record</button>
+
+            <button
+                    class="stamp remove"
+                    onclick="deleteStudent()">
+
+                Delete Record
+
+            </button>
+
         </div>
-        <div class="result" id="result-remove"></div>
+
+        <div
+                class="result"
+                id="result-remove">
+        </div>
+
     </section>
 
 </div>
 
-<footer>Talks to your API over fetch — nothing is stored in the browser.</footer>
+<footer>
+
+    Spring Boot Student Management System
+
+</footer>
 
 <script>
-    // ---- Tab switching ----
-    const tabs = document.querySelectorAll('.tab');
-    const cards = document.querySelectorAll('.card');
+
+    // ================= TAB SWITCHING =================
+
+    const tabs = document.querySelectorAll(".tab");
+    const cards = document.querySelectorAll(".card");
+
     tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
-            cards.forEach(c => c.classList.remove('active'));
-            tab.classList.add('active');
-            tab.setAttribute('aria-selected', 'true');
-            document.getElementById('card-' + tab.dataset.tab).classList.add('active');
+
+        tab.addEventListener("click", () => {
+
+            tabs.forEach(t => t.classList.remove("active"));
+
+            cards.forEach(c => c.classList.remove("active"));
+
+            tab.classList.add("active");
+
+            document
+                .getElementById("card-" + tab.dataset.tab)
+                .classList.add("active");
+
         });
+
     });
 
-    function base() {
-        return document.getElementById('baseUrl').value.replace(/\/$/, '');
+
+
+    // ================= BASE URL =================
+
+    function base(){
+
+        return document
+            .getElementById("baseUrl")
+            .value
+            .replace(/\/$/, "");
+
     }
 
-    function showResult(id, ok, data) {
-        const el = document.getElementById(id);
-        el.classList.remove('ok', 'err');
-        el.classList.add('show', ok ? 'ok' : 'err');
-        el.textContent = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+
+
+    // ================= SHOW RESULT =================
+
+    function showResult(id, success, data){
+
+        const box = document.getElementById(id);
+
+        box.classList.remove("ok");
+        box.classList.remove("err");
+
+        box.classList.add("show");
+
+        if(success){
+
+            box.classList.add("ok");
+
+        }
+
+        else{
+
+            box.classList.add("err");
+
+        }
+
+        if(typeof data === "string"){
+
+            box.textContent = data;
+
+        }
+
+        else{
+
+            box.textContent =
+                JSON.stringify(data,null,4);
+
+        }
+
     }
 
-    async function callApi(url, options, resultId) {
-        try {
-            const res = await fetch(url, options);
+
+
+    // ================= API CALL =================
+
+    async function callApi(url, options, resultId){
+
+        try{
+
+            const response = await fetch(url,options);
+
+            const text = await response.text();
+
             let body;
-            const text = await res.text();
-            try { body = JSON.parse(text); } catch { body = text; }
-            showResult(resultId, res.ok, body || (res.ok ? 'Done — no content returned.' : Request failed (${res.status})));
+
+            try{
+
+                body = JSON.parse(text);
+
+            }
+
+            catch{
+
+                body = text;
+
+            }
+
+            showResult(
+
+                resultId,
+
+                response.ok,
+
+                body
+
+            );
+
             return body;
-        } catch (err) {
-            showResult(resultId, false, 'Could not reach the server: ' + err.message);
+
         }
+
+        catch(error){
+
+            showResult(
+
+                resultId,
+
+                false,
+
+                "Server Error : " + error.message
+
+            );
+
+        }
+
     }
 
-    // ---- CREATE ----
-    function createStudent() {
-        const payload = {
-            id: document.getElementById('c-id').value.trim(),
-            name: document.getElementById('c-name').value.trim(),
-            age: document.getElementById('c-age').value.trim(),
-            dep: document.getElementById('c-dep').value.trim(),
+
+
+
+
+    // ================= CREATE =================
+
+    function createStudent(){
+
+        const payload={
+
+            id:Number(
+
+                document
+                    .getElementById("c-id")
+                    .value
+
+            ),
+
+            name:
+
+                document
+                    .getElementById("c-name")
+                    .value
+                    .trim(),
+
+            age:Number(
+
+                document
+                    .getElementById("c-age")
+                    .value
+
+            ),
+
+            dept:
+
+                document
+                    .getElementById("c-dept")
+                    .value
+                    .trim()
+
         };
-        callApi(${base()}/create, {
-        method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-    }, 'result-create');
+
+
+
+        callApi(
+
+            `${base()}/create`,
+
+            {
+
+                method:"POST",
+
+                headers:{
+
+                    "Content-Type":"application/json"
+
+                },
+
+                body:JSON.stringify(payload)
+
+            },
+
+            "result-create"
+
+        );
+
     }
 
-    // ---- LOOKUP ----
-    function getStudent() {
-        const id = document.getElementById('l-id').value.trim();
-        if (!id) return showResult('result-lookup', false, 'Enter a student ID first.');
-        callApi(${base()}/get/${encodeURIComponent(id)}, { method: 'GET' }, 'result-lookup');
-    }
 
-    // ---- UPDATE ----
-    function updateStudent() {
-        const id = document.getElementById('u-id').value.trim();
-        const name = document.getElementById('u-name').value.trim();
-        const age = document.getElementById('u-age').value.trim();
-        const dep = document.getElementById('u-dep').value.trim();
 
-        if (!id) return showResult('result-update', false, 'Enter a student ID first.');
-        if (!name || !age || !dep) {
-            return showResult('result-update', false, 'This endpoint overwrites the whole record — fill in name, age, and department.');
+
+
+    // ================= GET STUDENT =================
+
+    function getStudent(){
+
+        const id =
+
+            document
+                .getElementById("l-id")
+                .value
+                .trim();
+
+
+
+        if(id===""){
+
+            showResult(
+
+                "result-lookup",
+
+                false,
+
+                "Please enter Student ID."
+
+            );
+
+            return;
+
         }
 
-        callApi(${base()}/update/${encodeURIComponent(id)}, {
-            method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, age, dep }),
-        }, 'result-update');
+
+
+        callApi(
+
+            `${base()}/get/${id}`,
+
+            {
+
+                method:"GET"
+
+            },
+
+            "result-lookup"
+
+        );
+
     }
 
-    // ---- DELETE ----
-    function deleteStudent() {
-        const id = document.getElementById('d-id').value.trim();
-        if (!id) return showResult('result-remove', false, 'Enter a student ID first.');
-        callApi(${base()}/delete/${encodeURIComponent(id)}, { method: 'DELETE' }, 'result-remove');
+    // ================= UPDATE STUDENT =================
+
+    function updateStudent() {
+
+        const id = document
+            .getElementById("u-id")
+            .value
+            .trim();
+
+        if (id === "") {
+
+            showResult(
+                "result-update",
+                false,
+                "Please enter Student ID."
+            );
+
+            return;
+        }
+
+        const payload = {
+
+            name: document
+                .getElementById("u-name")
+                .value
+                .trim(),
+
+            age: Number(
+                document
+                    .getElementById("u-age")
+                    .value
+            ),
+
+            dept: document
+                .getElementById("u-dept")
+                .value
+                .trim()
+
+        };
+
+        callApi(
+
+            `${base()}/update/${id}`,
+
+            {
+
+                method: "PUT",
+
+                headers: {
+
+                    "Content-Type": "application/json"
+
+                },
+
+                body: JSON.stringify(payload)
+
+            },
+
+            "result-update"
+
+        );
+
     }
+
+
+
+
+
+    // ================= DELETE STUDENT =================
+
+    function deleteStudent() {
+
+        const id = document
+            .getElementById("d-id")
+            .value
+            .trim();
+
+        if (id === "") {
+
+            showResult(
+                "result-remove",
+                false,
+                "Please enter Student ID."
+            );
+
+            return;
+        }
+
+        callApi(
+
+            `${base()}/delete/${id}`,
+
+            {
+
+                method: "DELETE"
+
+            },
+
+            "result-remove"
+
+        );
+
+    }
+
 </script>
 
 </body>

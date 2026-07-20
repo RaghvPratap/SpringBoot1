@@ -5,6 +5,16 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Student {
+    public Student(){
+
+    };
+    public Student(int id, int age, String name, String dept) {
+        this.id = id;
+        this.age = age;
+        this.name = name;
+        this.dept = dept;
+    }
+
     @Id
     int id;
     int age;
