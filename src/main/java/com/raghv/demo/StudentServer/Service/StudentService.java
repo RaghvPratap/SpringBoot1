@@ -26,8 +26,10 @@ public class StudentService {
         return student;
     }
 
-    public Student getStudentById(int id) {
-        return studentRepository.findById(id).orElse(null);
+    public Student getStudentById(int id) throws  Exception {
+        Optional<Student> student=studentRepository.findById(id);
+//        return studentRepository.findById(id).orElse(null);
+        return  student.get();
     }
 
     public Student updateStudent(int id, Student newStudent) {

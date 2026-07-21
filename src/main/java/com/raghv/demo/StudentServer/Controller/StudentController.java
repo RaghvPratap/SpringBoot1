@@ -28,7 +28,7 @@ public class StudentController {
     }
 
     @GetMapping("get/{id}")
-    public ResponseEntity<?> getStudentById(@PathVariable int id) {
+    public ResponseEntity<?> getStudentById(@PathVariable int id) throws Exception {
         Student student = studentService.getStudentById(id);
         return ResponseEntity.status(200).body(student);
     }
