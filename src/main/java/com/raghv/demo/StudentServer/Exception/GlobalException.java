@@ -13,4 +13,9 @@ public class GlobalException {
     public ResponseEntity<String> handleRuntimeException(RuntimeException e){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
+    @ExceptionHandler(Exception.class)
+    public  ResponseEntity<String> handleCheckedException(Exception e){
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("An external system dependency " +
+                "failed to respond.");
+    }
 }
