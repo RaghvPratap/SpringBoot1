@@ -11,9 +11,6 @@ public class ExceptionResponseDTO {
     private  int statusCode;
     private String error;
     private String path;
+    private String message;
 
-
-
-    public ExceptionResponseDTO(LocalDateTime now, int value, String reasonPhrase, String message, String requestURI) {
-    }
 }
